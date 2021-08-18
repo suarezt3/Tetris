@@ -10,23 +10,24 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <!-- canvas where will the tetris be -->
-    <canvas id="tetris" width="200" height="400"></canvas>
-    <!--script tetris.js-->
-   <script src="/js/tetris.js"></script>
-=======
-
     <div class="title">Tretris</div>
     <div class="body">
-        <div class="position">
+        <div class="positions right">
+            <!--? canvas where will the tetris be -->
+            <canvas id="tetris" width="200" height="400"></canvas>
+        </div>
+
+        <!--? Elements of score, lines, levels and canvas where the next piece will be displayed -->
+        <div class="positions">
             <div id="score"></div>
             <div id="lines"></div>
             <div id="level"></div>
+            <canvas id="nextPiece" width="100" height="100"></canvas>
         </div>
 
     </div>
->>>>>>> c8c8785f344a0ea5ab48577d2c411512cd7b0953
+     <!--? script tetris.js -->
+    <script src="/js/tetris.js"></script>
 </body>
 
 </html>
