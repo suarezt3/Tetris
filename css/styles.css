@@ -1,5 +1,24 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+
 body {
+    background-image: url();
+    background-size: cover;
     color: black;
+    font-size: 2rem;
+    text-align: center;
+}
+
+   
+.title {
+    font-family: Nunito, sans-serif, arial, helvetica;
+    color: #000;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.body {
+    display: flex;
     
 }
+
