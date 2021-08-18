@@ -22,6 +22,7 @@ function draw(){
   context.fillRect(0,0,canvas.width, canvas.height);
 }
 
+draw()
 //_______________________________________________________________________________
 
 function createMatriz(width,height){

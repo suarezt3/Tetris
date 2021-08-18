@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="title">Tretris</div>
+    <div class="title">Tetris</div>
     <div class="body">
         <div class="positions right">
             <!--? canvas where will the tetris be -->
@@ -19,14 +19,30 @@
 
         <!--? Elements of score, lines, levels and canvas where the next piece will be displayed -->
         <div class="positions">
-            <div id="score"></div>
-            <div id="lines"></div>
-            <div id="level"></div>
-            <canvas id="nextPiece" width="100" height="100"></canvas>
+            <div class="caja-lateral">
+                <!--? The next part to be displayed on the screen is shown -->
+                SIGUIENTE
+                <canvas id="nextPiece" width="100" height="100"></canvas>
+            </div>
+            <div class="caja-lateral">
+                <!--? Place where the score is displayed -->
+                PUNTOS
+                <div id="score"></div>
+            </div>
+            <div class="caja-lateral">
+                <!--? Place where lines are displayed -->
+                LINEAS
+                <div id="lines"></div>
+            </div>
+            <div class="caja-lateral">
+                <!--? Place where the level is displayed -->
+                NIVEL
+                <div id="level"></div>
+            </div>
         </div>
 
     </div>
-     <!--? script tetris.js -->
+    <!--? script tetris.js -->
     <script src="/js/tetris.js"></script>
 </body>
 
