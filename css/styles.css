@@ -9,7 +9,7 @@ body {
     text-align: center;
 }
 
-   
+/*? Estilos del titulo  */
 .title {
     font-family: Nunito, sans-serif, arial, helvetica;
     color: #000;
@@ -20,5 +20,14 @@ body {
 .body {
     display: flex;
     
+}
+
+.positions {
+    flex: 1 1 auto;
+}
+
+.right {
+    text-align: right;
+    margin-right: 50px;
 }
 
