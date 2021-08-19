@@ -214,7 +214,7 @@ function rotate(matriz){
 
 function playerReset(){
   const pieces = 'ILJOTSZ';
-  player.matriz = createPiece(pieces[pieces.length + Math.random() ]);
+  player.matriz = createPiece(pieces[pieces.length * Math.random() | 0]);
   player.pos.x = 0;
   player.pos.y = 0
 }
