@@ -22,6 +22,18 @@ context.scale(20, 20);
 // the width of the canva is 200, so dividing it by 20 gives us 10 equal to the usual width of a domain
 
 // the height of the canva is 400 and dividing it into 20 gives us 20 equal to the rows
+//_______________________________________________________________________________
+
+function createPiece(tipo){
+  if(tipo === 'T'){
+    return [
+      [0, 0, 0],
+      [1, 1, 1],
+      [0, 1, 0],
+    ];
+  }
+
+}
 
 //_______________________________________________________________________________
 
@@ -56,15 +68,41 @@ function createMatriz(width, height){
   while(height--){
     matriz.push(new Array(width).fill(0));
 
-    console.table(matriz);
-
-    return matriz
-
+    // console.table(matriz);
   }
+  return matriz
+}
+//_______________________________________________________________________________
+
+function collide(grid, player){
+  const matriz = player.matriz;
+  const offset = player.pos;
+  
+  for(let y = 0; y < matriz.length; ++y){
+    for(let x=0; x < matriz[y].length; ++x){
+      if(matriz[y][x] !== 0 && (grid[y + offset.y] && grid[y + offset.y][x + offset.x]) !== 0 ){
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+// console.log(collide(grid, player))
+//_______________________________________________________________________________
+
+function merge(grid, player){
+  player.matriz.forEach((row, y) =>{
+    row.forEach((value, x)=>{
+      if(value !== 0){
+        grid[y + player.pos.y][x + player.pos.x] = value;
+      }
+    })
+  })
+  
 }
 
 //_______________________________________________________________________________
-
 // function that allows the game to update every time it appears on the screen
 function update(time = 0){
   const deltaTime = time - lastTime;
@@ -72,10 +110,8 @@ function update(time = 0){
   lastTime = time;
   dropCounter += deltaTime;
   if(dropCounter > dropInterval){
-    player.pos.y++;
-    dropCounter = 0;
+    playerDrop();
   }
-
   
   draw();
   // informs the browser that it wishes to perform an animation and requests that the browser schedule the repaint of the window for the next animation cycle.informa al navegador que desea realizar una animación y solicita que el navegador programe el repintado de la ventana para el próximo ciclo de animación.
@@ -84,10 +120,76 @@ function update(time = 0){
 }
 //_______________________________________________________________________________
 
-// document.addEventListener("keydown", event=>{
-//   if(event.keyCode === 40){
+function playerDrop(){
+  player.pos.y++;
+  if(collide(grid, player)){
+    player.pos.y--;
+    merge(grid, player)
+    playerReset();
+  }
+  // console.log(collide)
+  dropCounter = 0; 
+}
+//_______________________________________________________________________________
 
-//   }
-// })
+function playerMove(direction){
+  player.pos.x += direction;
+  if(collide(grid, player)){
+    player.pos.x -= direction
+  }
+}
+//_______________________________________________________________________________
+
+function playerRotate(){
+  const pos = player.pos.x;
+  let offset = 1;
+  rotate(player.matriz);
+  while(collide(grid, player)){
+    player.pos.x += offset;
+    offset = -(offset + (offset> 0 ? 1: -1));
+    if(offset > player.matriz[0].length){
+      rotate(player.matriz);
+      player.pos.x = pos;
+      return;
+    }
+  }
+}
+
+//_______________________________________________________________________________
+
+function rotate(matriz){
+  for(let y = 0; y < matriz.length; ++y){
+    for(let x = 0; x < y; ++x){
+      [matriz[x][y], matriz[y][x]] = [matriz[y][x], matriz[x][y]]
+    }
+  }
+
+  matriz.forEach(row => row.reverse());
+
+}
+
+//_______________________________________________________________________________
+
+function playerReset(){
+  player.matriz = createPiece("T");
+  player.pos.x = 0;
+  player.pos.y = 0
+}
+
+console.log(playerReset())
+
+//_______________________________________________________________________________
+document.addEventListener("keypress", event =>{
+  if(event.key === "s"){
+    playerDrop();
+  }else if (event.key === "a"){
+    playerMove(-1);
+  }
+  else if (event.key === "d"){
+    playerMove(1);
+  }else if (event.key === "q"){
+    playerRotate();
+  }
+})
 
 update();
