@@ -123,7 +123,7 @@ function drawMatriz(matriz, offset){
   matriz.forEach((row, y) => {
     row.forEach((value, x)=>{
       if(value!==0){
-        context.fillStyle = 'red';
+        context.fillStyle = 'blue';
         context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
     });
@@ -214,8 +214,8 @@ function rotate(matriz){
 
 function playerReset(){
   const pieces = 'ILJOTSZ';
-  player.matriz = createPiece(pieces[pieces.length * Math.random() | 0]);
-  player.pos.x = 0;
+  player.matriz = createPiece(pieces[pieces.length * Math.random() | 0 ]);
+  player.pos.x = (grid[0].length / 2 | 0) - (player.matriz[0].length / 2 | 0);
   player.pos.y = 0
 }
 
