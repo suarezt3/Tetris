@@ -5,7 +5,8 @@ let dropCounter = 0;
 const canvas = document.getElementById("tetris");
 // returns a drawing context on the canvas
 const context = canvas.getContext("2d");
-
+const canvasNext = document.getElementById("nextPiece");
+const contextNext = canvasNext.getContext("2d");
 const grid = createMatriz(10, 20);
 const colors = [
   null,
@@ -21,12 +22,15 @@ const colors = [
 const player = {
   pos: { x: 0, y: 0 },
   matriz: [],
+  next: null,
   score: 0,
   level: 0,
   lines: 0,
 };
 //we do this because the domain usually has 10 columns and 20 rows
 context.scale(20, 20);
+contextNext.scale(19, 19);
+
 // the width of the canva is 200, so dividing it by 20 gives us 10 equal to the usual width of a domain
 
 // the height of the canva is 400 and dividing it into 20 gives us 20 equal to the rows
@@ -137,6 +141,22 @@ function drawMatriz(matriz, offset) {
   });
 }
 
+//__________________________________________________________________________________
+// This function is from the box that shows the following tab
+function drawMatrizNext (matriz, offset) {
+  contextNext.fillStyle = "#000";
+  contextNext.fillRect (0, 0, canvasNext.width, canvasNext.height);
+  matriz.forEach((row, y) => {
+    row.forEach((value, x) => {
+      if (value !== 0) {
+        contextNext.fillStyle = colors[value];
+        contextNext.fillRect(x + offset.x, y + offset.y, 1, 1);
+      }
+    });
+  });
+} 
+
+
 //_______________________________________________________________________________
 
 // this function allows us to paint the canvas__ esta función nos permite pintar el lienzo
@@ -147,8 +167,9 @@ function draw() {
   context.fillRect(0, 0, canvas.width, canvas.height);
   drawMatriz(grid, { x: 0, y: 0 });
   drawMatriz(player.matriz, player.pos);
-}
 
+}
+draw();
 //____________________________________________________________________________________
 // What this function does is erase the lines that are being completed
 function gridSweep() {
@@ -169,7 +190,7 @@ function gridSweep() {
   }
 }
 
-draw();
+
 //_______________________________________________________________________________
 
 // function that allows the game to update every time it appears on the screen
@@ -241,9 +262,14 @@ function rotate(matriz) {
 
 function playerReset() {
   const pieces = "ILJOTSZ";
-  player.matriz = createPiece(pieces[(pieces.length * Math.random()) | 0]);
-  player.pos.x =
-    ((grid[0].length / 2) | 0) - ((player.matriz[0].length / 2) | 0);
+  dropInterval = 1000 - (player.level * 100);
+  if (player.next === null) {
+    player.matriz = createPiece(pieces[pieces.length * Math.random() | 0]);
+  }else {
+    player.matriz = player.next;
+  }
+  player.next = createPiece(pieces[pieces.length * Math.random() | 0]);
+  player.pos.x =((grid[0].length / 2) | 0) - ((player.matriz[0].length / 2) | 0);
   player.pos.y = 0;
 }
 
@@ -268,7 +294,9 @@ document.addEventListener("keypress", (event) => {
     playerRotate();
   }
 });
+
 playerReset();
 updateScore()
 // console.log(playerReset())
 update();
+drawMatrizNext()
