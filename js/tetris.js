@@ -10,13 +10,8 @@ const grid = createMatriz(10, 20);
 // this constant keeps the player information -- esta constante mantiene la información del jugador
 const player = {
   pos:{ x: 0, y: 0},
-  matriz:[
-    [0, 0, 0],
-    [1, 1, 1],
-    [0, 1, 0],
-  ]
-
-}
+  matriz: []
+};
 //we do this because the domain usually has 10 columns and 20 rows
 context.scale(20, 20);
 // the width of the canva is 200, so dividing it by 20 gives us 10 equal to the usual width of a domain
@@ -32,8 +27,94 @@ function createPiece(tipo){
       [0, 1, 0],
       [1, 1, 1],
     ];
+  } 
+  else if(tipo === 'O'){
+    return [
+      [1, 1],
+      [1, 1],
+    ];
+  } 
+  else if(tipo === 'L'){
+    return [
+      [0, 1, 0],
+      [0, 1, 0],
+      [0, 1, 1],
+    ];
+  }
+  else if(tipo === 'J'){
+    return [
+      [0, 1, 0],
+      [0, 1, 0],
+      [1, 1, 0],
+    ];
+  }
+  else if(tipo === 'I'){
+    return [
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+      [0, 1, 0, 0],
+    ];
+  }
+  else if(tipo === 'S'){
+    return [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0],
+    ];
+  }
+  else if(tipo === 'Z'){
+    return [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0],
+    ];
   }
 
+}
+
+//_______________________________________________________________________________
+
+function createMatriz(width, height){
+  const matriz =[];
+  while(height--){
+    matriz.push(new Array(width).fill(0));
+
+    // console.table(matriz);
+  }
+  return matriz
+}
+
+//_______________________________________________________________________________
+
+function collide(grid, player){
+  const matriz = player.matriz;
+  const offset = player.pos;
+  
+  for(let y = 0; y < matriz.length; ++y){
+    for(let x=0; x < matriz[y].length; ++x){
+      if(matriz[y][x] !== 0 && (grid[y + offset.y] && grid[y + offset.y][x + offset.x]) !== 0 ){
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+// console.log(collide(grid, player))
+
+//_______________________________________________________________________________
+
+
+function merge(grid, player){
+  player.matriz.forEach((row, y) =>{
+    row.forEach((value, x)=>{
+      if(value !== 0){
+        grid[y + player.pos.y][x + player.pos.x] = value;
+      }
+    })
+  })
+  
 }
 
 //_______________________________________________________________________________
@@ -43,9 +124,9 @@ function drawMatriz(matriz, offset){
     row.forEach((value, x)=>{
       if(value!==0){
         context.fillStyle = 'red';
-        context.fillRect(x + offset.x, y + offset.y, 1, 1)
+        context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
-    })
+    });
   });
 }
 
@@ -64,46 +145,6 @@ function draw(){
 draw()
 //_______________________________________________________________________________
 
-function createMatriz(width, height){
-  const matriz =[];
-  while(height--){
-    matriz.push(new Array(width).fill(0));
-
-    // console.table(matriz);
-  }
-  return matriz
-}
-//_______________________________________________________________________________
-
-function collide(grid, player){
-  const matriz = player.matriz;
-  const offset = player.pos;
-  
-  for(let y = 0; y < matriz.length; ++y){
-    for(let x=0; x < matriz[y].length; ++x){
-      if(matriz[y][x] !== 0 && (grid[y + offset.y] && grid[y + offset.y][x + offset.x]) !== 0 ){
-        return true;
-      }
-    }
-  }
-  
-  return false;
-}
-// console.log(collide(grid, player))
-//_______________________________________________________________________________
-
-function merge(grid, player){
-  player.matriz.forEach((row, y) =>{
-    row.forEach((value, x)=>{
-      if(value !== 0){
-        grid[y + player.pos.y][x + player.pos.x] = value;
-      }
-    })
-  })
-  
-}
-
-//_______________________________________________________________________________
 // function that allows the game to update every time it appears on the screen
 function update(time = 0){
   const deltaTime = time - lastTime;
@@ -172,12 +213,15 @@ function rotate(matriz){
 //_______________________________________________________________________________
 
 function playerReset(){
-  player.matriz = createPiece("T");
+  const pieces = 'ILJOTSZ';
+  player.matriz = createPiece(pieces[pieces.length + Math.random() ]);
   player.pos.x = 0;
   player.pos.y = 0
 }
 
-console.log(playerReset())
+// pieces[pieces.length + Math.random() ]
+
+// console.log(playerReset())
 
 //_______________________________________________________________________________
 document.addEventListener("keypress", event =>{
@@ -192,5 +236,6 @@ document.addEventListener("keypress", event =>{
     playerRotate();
   }
 })
-
+playerReset()
+// console.log(playerReset())
 update();
