@@ -1,12 +1,12 @@
 let lastTime = 0;
-let dropInterval = 1000;
+let dropInterval = 1000; //? This variable is what controls the speed with which the chips fall
 let dropCounter = 0;
 
 const canvas = document.getElementById('tetris');
 // returns a drawing context on the canvas
 const context = canvas.getContext("2d");
 
-const grid = createMatriz(10, 20);
+const grid = createMatriz(10, 20); 
 // this constant keeps the player information -- esta constante mantiene la información del jugador
 const player = {
   pos:{ x: 0, y: 0},
@@ -24,12 +24,13 @@ context.scale(20, 20);
 // the height of the canva is 400 and dividing it into 20 gives us 20 equal to the rows
 //_______________________________________________________________________________
 
+//? What this function does is create the pieces
 function createPiece(tipo){
   if(tipo === 'T'){
     return [
       [0, 0, 0],
-      [1, 1, 1],
       [0, 1, 0],
+      [1, 1, 1],
     ];
   }
 
