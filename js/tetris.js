@@ -1,6 +1,7 @@
 let lastTime = 0;
 let dropInterval = 1000; //? This variable is what controls the speed with which the chips fall
 let dropCounter = 0;
+let pause = false;
 
 const canvas = document.getElementById("tetris");
 // returns a drawing context on the canvas
@@ -38,7 +39,7 @@ contextNext.scale(19, 19);
 
 //? What this function does is create the pieces
 function createPiece(tipo) {
-  switch(tipo){
+  switch (tipo) {
     case "T":
       return [
         [0, 0, 0],
@@ -89,8 +90,11 @@ function createPiece(tipo) {
       ];
       break;
   }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 2a1f1a04602fc1d6b2bd5f49f44366a09ae4b210
 }
 
 //_______________________________________________________________________________
@@ -153,9 +157,9 @@ function drawMatriz(matriz, offset) {
 
 //__________________________________________________________________________________
 // This function is from the box that shows the following tab
-function drawMatrizNext (matriz, offset) {
+function drawMatrizNext(matriz, offset) {
   contextNext.fillStyle = "#000";
-  contextNext.fillRect (0, 0, canvasNext.width, canvasNext.height);
+  contextNext.fillRect(0, 0, canvasNext.width, canvasNext.height);
   matriz.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value !== 0) {
@@ -164,8 +168,7 @@ function drawMatrizNext (matriz, offset) {
       }
     });
   });
-} 
-
+}
 
 //_______________________________________________________________________________
 
@@ -177,8 +180,7 @@ function draw() {
   context.fillRect(0, 0, canvas.width, canvas.height);
   drawMatriz(grid, { x: 0, y: 0 });
   drawMatriz(player.matriz, player.pos);
-  drawMatrizNext(player.next, {x:1, y:1})
-
+  drawMatrizNext(player.next, { x: 1, y: 1 });
 }
 // draw();
 //____________________________________________________________________________________
@@ -201,11 +203,11 @@ function gridSweep() {
   }
 }
 
-
 //_______________________________________________________________________________
 
 // function that allows the game to update every time it appears on the screen
 function update(time = 0) {
+  if (pause) return;
   const deltaTime = time - lastTime;
   // console.log(time);
   lastTime = time;
@@ -213,7 +215,6 @@ function update(time = 0) {
   if (dropCounter > dropInterval) {
     playerDrop();
   }
-
   draw();
   // informs the browser that it wishes to perform an animation and requests that the browser schedule the repaint of the window for the next animation cycle.informa al navegador que desea realizar una animación y solicita que el navegador programe el repintado de la ventana para el próximo ciclo de animación.
   requestAnimationFrame(update);
@@ -273,22 +274,39 @@ function rotate(matriz) {
 
 function playerReset() {
   const pieces = "ILJOTSZ";
-  dropInterval = 1000 - (player.level * 100);
+  dropInterval = 1000 - player.level * 100;
   if (player.next === null) {
-    player.matriz = createPiece(pieces[pieces.length * Math.random() | 0]);
-  }else {
+    player.matriz = createPiece(pieces[(pieces.length * Math.random()) | 0]);
+  } else {
     player.matriz = player.next;
   }
-  player.next = createPiece(pieces[pieces.length * Math.random() | 0]);
-  player.pos.x =(grid[0].length / 2 | 0) - (player.matriz[0].length / 2 | 0);
+  player.next = createPiece(pieces[(pieces.length * Math.random()) | 0]);
+  player.pos.x =
+    ((grid[0].length / 2) | 0) - ((player.matriz[0].length / 2) | 0);
   player.pos.y = 0;
-  if(collide(grid, player)){
-    grid.forEach(row => row.fill(0));
+  if (collide(grid, player)) {
+    grid.forEach((row) => row.fill(0));
     player.score = 0;
     player.level = 0;
     player.lines = 0;
     updateScore();
   }
+}
+
+function fPause(pauser) {
+  pause = pauser;
+  if (pause) {
+    document.getElementById("background_tetris").style.display = "block";
+  } else {
+    document.getElementById("background_tetris").style.display = "none";
+    update();
+  }
+}
+
+function gameStart() {
+  playerReset();
+  updateScore();
+  update();
 }
 
 function updateScore() {
@@ -298,11 +316,11 @@ function updateScore() {
 }
 // pieces[pieces.length + Math.random() ]
 
-console.log(playerReset())
-console.log (player.matriz)
+console.log(playerReset());
+console.log(player.matriz);
 
 //_______________________________________________________________________________
-document.addEventListener("keypress", (event) => {
+/* document.addEventListener("keypress", (event) => {
   if (event.key === "s") {
     playerDrop();
   } else if (event.key === "a") {
@@ -312,10 +330,25 @@ document.addEventListener("keypress", (event) => {
   } else if (event.key === "q") {
     playerRotate();
   }
+});*/
+document.addEventListener("keypress", (event) => {
+  switch (event.key) {
+    case "s":
+      playerDrop();
+      break;
+    case "a":
+      playerMove(-1);
+      break;
+    case "d":
+      playerMovdddde(1);
+      break;
+    case "q":
+      playerRotate();
+  }
 });
 
 playerReset();
-updateScore()
+updateScore();
+
 // console.log(playerReset())
 update();
-drawMatrizNext()

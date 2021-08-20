@@ -11,7 +11,18 @@
 
 <body>
     <div class="title">Tetris</div>
-    <div class="body">
+
+    <div id="background_tetris" class="background_tetris">
+        <div id="UI-MainMenu" class="UI-MainMenu">
+            <button onclick="" class="btn">Jugar</button>
+        </div>
+        <div id="UI-Pause" class="UI-Pause">
+            <div class="title_menu">Pausa</div>
+            <button onclick="fPause(false)">Reiniciar</button>
+        </div>
+    </div>
+
+    <div id="body" class="body">
         <div class="positions right">
             <!--? canvas where will the tetris be -->
             <canvas id="tetris" width="200" height="400"></canvas>
@@ -39,7 +50,11 @@
                 NIVEL
                 <div id="level"></div>
             </div>
+            <div class="btn_group">
+                <button onclick="fPause(true)" class="btn">Pausa</button>
+            </div>
         </div>
+
 
     </div>
     <!--? script tetris.js -->
