@@ -80,3 +80,15 @@ canvas#nextPiece {
   margin-left: -100px;
   display: none;
 }
+
+.btn_left {
+  float: left;
+  width: 90px;
+  padding-right: 5px;
+}
+
+.btn_right {
+  float: right;
+  width: 90px;
+  padding-left: 5px;
+}
