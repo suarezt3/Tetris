@@ -21,7 +21,7 @@ const colors = [
 // this constant keeps the player information -- esta constante mantiene la información del jugador
 const player = {
   pos: { x: 0, y: 0 },
-  matriz: [],
+  matriz: null,
   next: null,
   score: 0,
   level: 0,
@@ -38,49 +38,58 @@ contextNext.scale(19, 19);
 
 //? What this function does is create the pieces
 function createPiece(tipo) {
-  if (tipo === "T") {
-    return [
-      [0, 0, 0],
-      [0, 1, 0],
-      [1, 1, 1],
-    ];
-  } else if (tipo === "O") {
-    return [
-      [2, 2],
-      [2, 2],
-    ];
-  } else if (tipo === "L") {
-    return [
-      [0, 3, 0],
-      [0, 3, 0],
-      [0, 3, 3],
-    ];
-  } else if (tipo === "J") {
-    return [
-      [0, 4, 0],
-      [0, 4, 0],
-      [4, 4, 0],
-    ];
-  } else if (tipo === "I") {
-    return [
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-      [0, 5, 0, 0],
-    ];
-  } else if (tipo === "S") {
-    return [
-      [0, 6, 6],
-      [6, 6, 0],
-      [0, 0, 0],
-    ];
-  } else if (tipo === "Z") {
-    return [
-      [7, 7, 0],
-      [0, 7, 7],
-      [0, 0, 0],
-    ];
+  switch(tipo){
+    case "T":
+      return [
+        [0, 0, 0],
+        [1, 1, 1],
+        [0, 1, 0],
+      ];
+      break;
+    case "O":
+      return [
+        [2, 2],
+        [2, 2],
+      ];
+      break;
+    case "L":
+      return [
+        [0, 3, 0],
+        [0, 3, 0],
+        [0, 3, 3],
+      ];
+      break;
+    case "J":
+      return [
+        [0, 4, 0],
+        [0, 4, 0],
+        [4, 4, 0],
+      ];
+      break;
+    case "I":
+      return [
+        [0, 5, 0, 0],
+        [0, 5, 0, 0],
+        [0, 5, 0, 0],
+        [0, 5, 0, 0],
+      ];
+      break;
+    case "S":
+      return [
+        [0, 6, 6],
+        [6, 6, 0],
+        [0, 0, 0],
+      ];
+      break;
+    case "Z":
+      return [
+        [7, 7, 0],
+        [0, 7, 7],
+        [0, 0, 0],
+      ];
+      break;
   }
+
 }
 
 //_______________________________________________________________________________
@@ -167,9 +176,10 @@ function draw() {
   context.fillRect(0, 0, canvas.width, canvas.height);
   drawMatriz(grid, { x: 0, y: 0 });
   drawMatriz(player.matriz, player.pos);
+  drawMatrizNext(player.next, {x:1, y:1})
 
 }
-draw();
+// draw();
 //____________________________________________________________________________________
 // What this function does is erase the lines that are being completed
 function gridSweep() {
@@ -271,6 +281,13 @@ function playerReset() {
   player.next = createPiece(pieces[pieces.length * Math.random() | 0]);
   player.pos.x =(grid[0].length / 2 | 0) - (player.matriz[0].length / 2 | 0);
   player.pos.y = 0;
+  if(collide(grid, player)){
+    grid.forEach(row => row.fill(0));
+    player.score = 0;
+    player.level = 0;
+    player.lines = 0;
+    updateScore();
+  }
 }
 
 function updateScore() {
@@ -280,7 +297,8 @@ function updateScore() {
 }
 // pieces[pieces.length + Math.random() ]
 
-// console.log(playerReset())
+console.log(playerReset())
+console.log (player.matriz)
 
 //_______________________________________________________________________________
 document.addEventListener("keypress", (event) => {
