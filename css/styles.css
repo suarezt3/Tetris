@@ -1,53 +1,82 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap");
 
 body {
-    background-color: gray;
-    color: #fff;
-    text-align: center;
-    font-family: Nunito, sans-serif, arial, helvetica;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  font-family: Nunito, sans-serif, arial, helvetica;
+  margin: 0;
+  padding: 0;
 }
 
 /*? Estilos del titulo  */
 .title {
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-    font-size: 2em;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  font-size: 2em;
 }
 
 .body {
-    display: flex;
-    
+  display: none;
 }
 
 .positions {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 /*? Styles of the box containing the canvas */
 .right {
-    text-align: right;
-    margin-right: 50px;
+  text-align: right;
+  margin-right: 50px;
 }
 
 /*? Canvas styles */
 canvas#tetris {
-    border: solid 3px #fff;
-    border-radius: 5px;
-    height: 90vh;
+  border: solid 3px #fff;
+  border-radius: 5px;
+  height: 90vh;
 }
 
 /*? Styles of the point, level and line boxes  */
 .caja-lateral {
-    border: solid 3px #fff;
-    margin-bottom: 20px;
-    max-width: 200px;
-    background-color: #000;
+  border: solid 3px #fff;
+  margin-bottom: 20px;
+  max-width: 200px;
+  background-color: #000;
 }
 
 /*? Styles for the canvas that shows the next tab */
 canvas#nextPiece {
-    width: 100%;
+  width: 100%;
 }
 
+.btn_group {
+  width: 100%;
+  max-width: 200px;
+}
+
+.btn {
+  width: 100%;
+  font-size: 1em;
+  background-color: #2f64f3;
+  border-radius: 5px;
+}
+
+.background_tetris {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: #000000ad;
+}
+
+.UI-Pause {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -100px;
+  display: none;
+}
