@@ -295,9 +295,11 @@ function fPause(pauser) {
   if (pause) {
     document.getElementById("background_tetris").style.display = "block";
     document.getElementById("UI-Pause").style.display="block";
+    document.getElementById("musica_fondo").pause();
   } else {
     document.getElementById("background_tetris").style.display = "none";
     document.getElementById("UI-Pause").style.display="none";
+    document.getElementById("musica_fondo").play();
     update();
   }
 }
@@ -317,6 +319,7 @@ function closeGame () {
   document.getElementById("UI-MainMenu").style.display="block";
   document.getElementById("UI-Pause").style.display="none";
   document.getElementById("background_tetris").style.display="block";
+  document.getElementById("musica_fondo").play();
 }
 
 function updateScore() {

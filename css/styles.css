@@ -92,3 +92,13 @@ canvas#nextPiece {
   width: 90px;
   padding-left: 5px;
 }
+
+.UI-MainMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 100px;
+  margin-top: -50px;
+  margin-left: -100px;
+}
