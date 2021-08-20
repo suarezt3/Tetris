@@ -269,7 +269,7 @@ function playerReset() {
     player.matriz = player.next;
   }
   player.next = createPiece(pieces[pieces.length * Math.random() | 0]);
-  player.pos.x =((grid[0].length / 2) | 0) - ((player.matriz[0].length / 2) | 0);
+  player.pos.x =(grid[0].length / 2 | 0) - (player.matriz[0].length / 2 | 0);
   player.pos.y = 0;
 }
 
@@ -296,7 +296,8 @@ document.addEventListener("keypress", (event) => {
 });
 
 playerReset();
-updateScore()
+updateScore();
+
 // console.log(playerReset())
 update();
-drawMatrizNext()
+
