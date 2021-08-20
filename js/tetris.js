@@ -292,16 +292,29 @@ function fPause(pauser) {
   pause = pauser;
   if (pause) {
     document.getElementById("background_tetris").style.display = "block";
+    document.getElementById("UI-Pause").style.display="block";
   } else {
     document.getElementById("background_tetris").style.display = "none";
+    document.getElementById("UI-Pause").style.display="none";
     update();
   }
 }
 
 function gameStart() {
+  document.getElementById("background_tetris").style.display="none";
+  document.getElementById("UI-MainMenu").style.display="none";
+  document.getElementById("body").style.display="flex";
+  pause = false;
   playerReset();
   updateScore();
   update();
+}
+
+function closeGame () {
+  document.getElementById("body").style.display="none";
+  document.getElementById("UI-MainMenu").style.display="block";
+  document.getElementById("UI-Pause").style.display="none";
+  document.getElementById("background_tetris").style.display="block";
 }
 
 function updateScore() {
