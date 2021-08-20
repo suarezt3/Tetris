@@ -90,11 +90,8 @@ function createPiece(tipo) {
       ];
       break;
   }
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 2a1f1a04602fc1d6b2bd5f49f44366a09ae4b210
 }
 
 //_______________________________________________________________________________
@@ -353,7 +350,7 @@ document.addEventListener("keypress", (event) => {
       playerMove(-1);
       break;
     case "d":
-      playerMovdddde(1);
+      playerMove(1);
       break;
     case "q":
       playerRotate();
