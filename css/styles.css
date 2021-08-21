@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap");
 
 body {
-  background-color: gray;
+  background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
   color: #fff;
   text-align: center;
   font-family: Nunito, sans-serif, arial, helvetica;
@@ -12,7 +12,7 @@ body {
 /*? Estilos del titulo  */
 .title {
   font-weight: bold;
-  color: #000;
+  color: #fff;
   text-align: center;
   font-size: 2em;
 }
@@ -32,16 +32,17 @@ body {
 }
 
 /*? Canvas styles */
-canvas#tetris {
-  border: solid 3px #fff;
+.tetris {
+  border: solid 3px rgb(161, 228, 255);
   border-radius: 5px;
   height: 90vh;
 }
 
 /*? Styles of the point, level and line boxes  */
 .caja-lateral {
-  border: solid 3px #fff;
+  border: solid 3px rgb(161, 228, 255);
   margin-bottom: 20px;
+  border-radius: 5px;
   max-width: 200px;
   background-color: #000;
 }
@@ -101,4 +102,12 @@ canvas#nextPiece {
   height: 100px;
   margin-top: -50px;
   margin-left: -100px;
+}
+
+.controles {
+  width: 200px;
+}
+
+.controles p {
+  text-align: left;
 }
