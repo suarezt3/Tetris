@@ -106,8 +106,13 @@ canvas#nextPiece {
 
 .controles {
   width: 200px;
+  position: absolute;
+  text-align: center;
+  left: 991px;
+  top: 30px
 }
 
 .controles p {
   text-align: left;
+  
 }

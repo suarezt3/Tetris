@@ -287,6 +287,10 @@ function playerReset() {
     player.level = 0;
     player.lines = 0;
     updateScore();
+    document.getElementById("musica_fondo").pause();
+    alert("has perdido");
+    document.getElementById("musica_fondo").play();
+    
   }
 }
 
@@ -312,6 +316,11 @@ function gameStart() {
   playerReset();
   updateScore();
   update();
+  grid.forEach((row) => row.fill(0));
+    player.score = 0;
+    player.level = 0;
+    player.lines = 0;
+    updateScore();
 }
 
 function closeGame () {
@@ -355,7 +364,7 @@ document.addEventListener("keypress", (event) => {
     case "d":
       playerMove(1);
       break;
-    case "q":
+    case "w":
       playerRotate();
   }
 });
