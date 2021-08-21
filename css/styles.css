@@ -106,7 +106,7 @@ canvas#nextPiece {
 
 .controles {
   width: 200px;
-  position: absolute;
+  /* position: absolute; */
   text-align: center;
   left: 991px;
   top: 30px
